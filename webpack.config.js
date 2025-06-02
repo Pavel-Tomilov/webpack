@@ -13,6 +13,13 @@ module.exports = {
     filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist')
   } ,
+  resolve: {
+    extensions: ['.js', '.json', '.png'],
+    alias: {
+      '@models': path.resolve(__dirname, 'src/models'),
+      '@': path.resolve(__dirname, 'src')
+    }
+  },
   plugins: [
     new HTMLWebpackPlugin({
         template: './index.html'
@@ -31,7 +38,20 @@ module.exports = {
       generator: {
         filename: 'images/[hash][ext][query]'
       }
+        },
+        {
+          test: /\.(ttf|woff|woff2|eot)$/,
+            use: ['file-loader']
+        },
+        {
+          test: /\.xml$/,
+            use: ['xml-loader']
+        },
+         {
+          test: /\.csv$/,
+            use: ['csv-loader']
         }
+
     ]
   }
 }
