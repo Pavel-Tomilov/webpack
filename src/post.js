@@ -11,7 +11,7 @@ class Post {
             title: this.title,
             date: this.date.toJSON(),
             img: this.img
-        })
+        }, null, 2)
     }
 
     get uppercaseTitle() {
