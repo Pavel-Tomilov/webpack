@@ -8,7 +8,7 @@ body {
 
 .container {
     padding-top: 2rem;
-    min-width: 100px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 
@@ -25,5 +25,5 @@ h1 {
 }
 
 .code {
-    color: rgb(13, 100, 24);
+    color: rgb(14, 14, 13);
 }
