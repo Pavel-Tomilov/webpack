@@ -44,8 +44,8 @@ module.exports = {
   context: path.resolve(__dirname, 'src'),
   mode: isDev ? 'development' : 'production', // Динамически меняем mode
   entry: {
-    main: './index.js',
-    analitic: './analitic.js'
+    main: './index.jsx',
+    analitic: './analitic.ts'
   },
   output: {
     filename: filename('js'),
@@ -67,7 +67,16 @@ module.exports = {
     port: 4200,
     open: true,
     hot: isDev,
-    watchFiles: ['src/**/*']
+    watchFiles: ['src/**/*'],
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/](react|moment|lodash)[\\/]/,
+          name: 'vendor-470',
+          chunks: 'all',
+        },
+      },
+    },
   },
   plugins: [
     new HTMLWebpackPlugin({
@@ -120,7 +129,37 @@ module.exports = {
       {
         test: /\.csv$/,
         use: ['csv-loader']
-      }
+      },
+      {
+        test: /\.m?js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }
+      },
+      {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ['@babel/preset-env', "@babel/preset-typescript"]
+          }
+        }
+      },
+      {
+        test: /\.jsx$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ['@babel/preset-env', "@babel/preset-react"]
+          }
+        }
+      },
     ]
   }
 }
